@@ -6,7 +6,7 @@ services:
     restart: always
     container_name: 'postgres'
     environment:
-        POSTGRES_PASSWORD: ''
+        POSTGRES_PASSWORD: 'oasis2022'
         POSTGRES_USER: 'postgres'
         POSTGRES_HOST_AUTH_METHOD: 'trust'
     ports:
@@ -20,7 +20,7 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
-        COIN: ""
+        COIN: "uSPK"
         CACHE_EXCHANGE_RATES_PERIOD: ""
         DISABLE_READ_API: "false"
         API_PATH: "/"
@@ -32,15 +32,16 @@ services:
         SOCKET_ROOT: "/"
         WOBSERVER_ENABLED: "false"
         ADMIN_PANEL_ENABLED: ""
+
     restart: always
     container_name: 'blockscout'
     links:
       - db:database
     command: bash -c "bin/blockscout eval \"Elixir.Explorer.ReleaseTasks.create_and_migrate()\" && bin/blockscout start"
     extra_hosts:
-      - 'host.docker.internal:host-gateway'
+      - 'zhuji:192.168.31.244'
     env_file:
       -  ./envs/common-blockscout.env
     ports:
-      - 4000:4000
+      - 4001:4000
 
