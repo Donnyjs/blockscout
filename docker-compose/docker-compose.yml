@@ -14,8 +14,10 @@ services:
     image: postgres:14
     restart: always
     container_name: 'postgres'
+    command:
+      --max_connections=4800
     environment:
-        POSTGRES_PASSWORD: ''
+        POSTGRES_PASSWORD: 'oasis2022'
         POSTGRES_USER: 'postgres'
         POSTGRES_HOST_AUTH_METHOD: 'trust'
     ports:
@@ -48,11 +50,11 @@ services:
       - db:database
     command: bash -c "bin/blockscout eval \"Elixir.Explorer.ReleaseTasks.create_and_migrate()\" && bin/blockscout start"
     extra_hosts:
-      - 'host.docker.internal:host-gateway'
+      - 'dbhost:192.168.0.81'
     env_file:
       -  ./envs/common-blockscout.env
     ports:
-      - 4000:4000
+      - 4001:4000
     volumes:
       - ./logs/:/app/logs/
 

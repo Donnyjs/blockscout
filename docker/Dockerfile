@@ -48,6 +48,11 @@ ADD . .
 
 COPY . .
 
+
+RUN sed -i "/msgid \"Gwei\"/{n;s/msgstr \"\"/msgstr \"Gspk\"/g}" apps/block_scout_web/priv/gettext/en/LC_MESSAGES/default.po;
+RUN sed -i "/msgid \"WEI\"/{n;s/msgstr \"\"/msgstr \"uspk\"/g}" apps/block_scout_web/priv/gettext/en/LC_MESSAGES/default.po;
+RUN sed -i "/msgid \"Wei\"/{n;s/msgstr \"\"/msgstr \"uspk\"/g}" apps/block_scout_web/priv/gettext/en/LC_MESSAGES/default.po;
+
 # Run forderground build and phoenix digest
 RUN mix compile && npm install npm@latest
 

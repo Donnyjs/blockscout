@@ -1257,9 +1257,7 @@ defmodule Explorer.Chain do
   """
   @spec finished_internal_transactions_indexing?() :: boolean()
   def finished_internal_transactions_indexing? do
-    internal_transactions_disabled? = System.get_env("INDEXER_DISABLE_INTERNAL_TRANSACTIONS_FETCHER", "false") == "true"
-
-    if internal_transactions_disabled? do
+    if true do
       true
     else
       json_rpc_named_arguments = Application.fetch_env!(:indexer, :json_rpc_named_arguments)
